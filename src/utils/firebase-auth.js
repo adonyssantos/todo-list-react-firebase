@@ -1,4 +1,4 @@
-import { signInWithPopup } from 'firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
 import { auth, googleAuthProvider } from '../services';
 
 export const loginWithGoogle = () => {
@@ -11,4 +11,8 @@ export const loginWithFacebook = () => null;
 
 export const loginWithGithub = () => null;
 
-export const logout = () => null;
+export const logout = () => {
+  return signOut(auth)
+    .then(() => null)
+    .catch(error => console.log(error));
+};
