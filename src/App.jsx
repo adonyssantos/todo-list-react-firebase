@@ -5,15 +5,17 @@ import {
   loginWithGithub,
   logout,
 } from './utils/firebase-auth';
-import { createTodo } from './utils/firebase-db';
+import { createTodo, readTodos } from './utils/firebase-db';
 
 const App = () => {
   const [user, setUser] = useState(null);
-  const [todos, setTodos] = useState();
+  const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    setTodos([]);
-  }, []);
+    if (user) {
+      readTodos(user.uid).then(todos => setTodos(todos));
+    }
+  }, [user]);
 
   const handleGoogleLogin = () => {
     loginWithGoogle()
