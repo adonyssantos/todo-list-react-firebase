@@ -5,7 +5,12 @@ import {
   loginWithGithub,
   logout,
 } from './utils/firebase-auth';
-import { createTodo, readTodos, updateTodo } from './utils/firebase-db';
+import {
+  createTodo,
+  readTodos,
+  updateTodo,
+  deleteTodo,
+} from './utils/firebase-db';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -119,7 +124,7 @@ const App = () => {
             </button>
             <button
               onClick={() => {
-                setTodos(todos.filter(t => t.id !== todo.id));
+                deleteTodo(todo.id);
               }}
             >
               Delete

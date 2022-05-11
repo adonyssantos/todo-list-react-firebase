@@ -6,6 +6,7 @@ import {
   where,
   getDocs,
   updateDoc,
+  deleteDoc,
 } from 'firebase/firestore';
 import { db } from '../services';
 
@@ -43,4 +44,10 @@ export const updateTodo = async (id, data) => {
   });
 };
 
-export const deleteTodo = () => null;
+export const deleteTodo = async id => {
+  const todoRef = doc(db, 'todos', id);
+
+  await deleteDoc(todoRef).then(() => {
+    console.log('Todo deleted');
+  });
+};
