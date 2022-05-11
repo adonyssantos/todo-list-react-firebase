@@ -31,7 +31,11 @@ const App = () => {
   const handleFacebookLogin = () => {
     loginWithFacebook()
       .then(user => {
-        setUser(user);
+        setUser({
+          uid: user.uid,
+          name: user.displayName,
+          photoURL: user.photoURL,
+        });
       })
       .catch(error => {
         console.log(error);
@@ -41,7 +45,11 @@ const App = () => {
   const handleGithubLogin = () => {
     loginWithGithub()
       .then(user => {
-        setUser(user);
+        setUser({
+          uid: user.uid,
+          name: user.displayName,
+          photoURL: user.photoURL,
+        });
       })
       .catch(error => {
         console.log(error);
