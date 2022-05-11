@@ -1,7 +1,23 @@
-import { collection, addDoc, query, where, getDocs } from 'firebase/firestore';
+import {
+  collection,
+  doc,
+  addDoc,
+  query,
+  where,
+  getDocs,
+  updateDoc,
+} from 'firebase/firestore';
 import { db } from '../services';
 
-export const createTodo = todo => addDoc(collection(db, 'todos'), todo);
+export const createTodo = async data => {
+  let todoId = '';
+
+  await addDoc(collection(db, 'todos'), data).then(result => {
+    todoId = result.id;
+  });
+
+  return todoId;
+};
 
 export const readTodos = async userId => {
   const result = [];
@@ -9,13 +25,22 @@ export const readTodos = async userId => {
 
   await getDocs(q).then(todos =>
     todos.forEach(todo => {
-      result.push(todo.data());
+      result.push({
+        id: todo.id,
+        ...todo.data(),
+      });
     }),
   );
 
   return result;
 };
 
-export const updateTodo = () => null;
+export const updateTodo = async (id, data) => {
+  const todoRef = doc(db, 'todos', id);
+
+  await updateDoc(todoRef, data).then(() => {
+    console.log('Todo updated');
+  });
+};
 
 export const deleteTodo = () => null;

@@ -5,7 +5,7 @@ import {
   loginWithGithub,
   logout,
 } from './utils/firebase-auth';
-import { createTodo, readTodos } from './utils/firebase-db';
+import { createTodo, readTodos, updateTodo } from './utils/firebase-db';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -15,7 +15,7 @@ const App = () => {
     if (user) {
       readTodos(user.uid).then(todos => setTodos(todos));
     }
-  }, [user]);
+  }, [user, todos]);
 
   const handleGoogleLogin = () => {
     loginWithGoogle()
@@ -75,14 +75,19 @@ const App = () => {
 
     if (todoTitle) {
       const newTodo = {
-        id: Math.random().toString(36).substring(7) + Date.now(),
         title: todoTitle,
         completed: false,
         userRef: user.uid,
       };
 
-      createTodo(newTodo).then(() => {
-        setTodos([...todos, newTodo]);
+      createTodo(newTodo).then(todoId => {
+        setTodos([
+          ...todos,
+          {
+            id: todoId,
+            ...newTodo,
+          },
+        ]);
       });
     }
 
@@ -107,14 +112,7 @@ const App = () => {
             {todo.completed ? <s>{todo.title}</s> : <span>{todo.title}</span>}
             <button
               onClick={() => {
-                setTodos(
-                  todos.map(t => {
-                    if (t.id === todo.id) {
-                      t.completed = !t.completed;
-                    }
-                    return t;
-                  }),
-                );
+                updateTodo(todo.id, { completed: !todo.completed });
               }}
             >
               {todo.completed ? 'Uncomplete' : 'Complete'}
