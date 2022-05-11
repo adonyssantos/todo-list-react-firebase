@@ -1,5 +1,10 @@
 import { signInWithPopup, signOut } from 'firebase/auth';
-import { auth, googleAuthProvider, facebookAuthProvider } from '../services';
+import {
+  auth,
+  googleAuthProvider,
+  facebookAuthProvider,
+  githubAuthProvider,
+} from '../services';
 
 export const loginWithGoogle = () => {
   return signInWithPopup(auth, googleAuthProvider)
@@ -13,7 +18,11 @@ export const loginWithFacebook = () => {
     .catch(error => console.log(error));
 };
 
-export const loginWithGithub = () => null;
+export const loginWithGithub = () => {
+  return signInWithPopup(auth, githubAuthProvider)
+    .then(result => result.user)
+    .catch(error => console.log(error));
+};
 
 export const logout = () => {
   return signOut(auth)
