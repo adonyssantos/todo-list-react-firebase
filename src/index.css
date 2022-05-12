@@ -111,3 +111,43 @@ ul li button {
   color: #333;
   cursor: pointer;
 }
+
+/* Login buttons */
+.login-btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 5px;
+  height: calc(100vh - 200px);
+}
+
+.login-btns button {
+  margin-bottom: 20px;
+  display: block;
+  border: none;
+  border-radius: 5px;
+  padding: 20px;
+  width: 400px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #eee;
+  cursor: pointer;
+}
+
+.login-btns button:nth-child(1) {
+  background-color: #db4437;
+}
+
+.login-btns button:nth-child(2) {
+  background-color: #3b5998;
+}
+
+.login-btns button:nth-child(3) {
+  background-color: #333;
+}
+
+.login-btns button:hover {
+  color: #fff;
+}
