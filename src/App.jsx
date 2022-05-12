@@ -107,10 +107,8 @@ const App = () => {
       </header>
       <form onSubmit={handleTodoAdd}>
         <input type='text' placeholder='Enter todo' name='title' id='title' />
-
         <button type='submit'>Add</button>
       </form>
-
       <ul>
         {todos.map(todo => (
           <li key={todo.id}>
@@ -138,9 +136,11 @@ const App = () => {
       <header>
         <h1>Login</h1>
       </header>
-      <button onClick={handleGoogleLogin}>Login with Google</button>
-      <button onClick={handleFacebookLogin}>Login with Facebook</button>
-      <button onClick={handleGithubLogin}>Login with Github</button>
+      <div className='login-btns'>
+        <button onClick={handleGoogleLogin}>Login with Google</button>
+        <button onClick={handleFacebookLogin}>Login with Facebook</button>
+        <button onClick={handleGithubLogin}>Login with Github</button>
+      </div>
     </div>
   );
 };
