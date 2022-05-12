@@ -105,28 +105,30 @@ const App = () => {
         <h1>Hello {user.name}</h1>
         <button onClick={handleLogout}>Logout</button>
       </header>
-      <form onSubmit={handleTodoAdd}>
+      <form onSubmit={handleTodoAdd} className='container'>
         <input type='text' placeholder='Enter todo' name='title' id='title' />
         <button type='submit'>Add</button>
       </form>
-      <ul>
+      <ul className='container'>
         {todos.map(todo => (
           <li key={todo.id}>
             {todo.completed ? <s>{todo.title}</s> : <span>{todo.title}</span>}
-            <button
-              onClick={() => {
-                updateTodo(todo.id, { completed: !todo.completed });
-              }}
-            >
-              {todo.completed ? 'Uncomplete' : 'Complete'}
-            </button>
-            <button
-              onClick={() => {
-                deleteTodo(todo.id);
-              }}
-            >
-              Delete
-            </button>
+            <div className='todo-btns'>
+              <button
+                onClick={() => {
+                  updateTodo(todo.id, { completed: !todo.completed });
+                }}
+              >
+                {todo.completed ? 'Uncomplete' : 'Complete'}
+              </button>
+              <button
+                onClick={() => {
+                  deleteTodo(todo.id);
+                }}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>

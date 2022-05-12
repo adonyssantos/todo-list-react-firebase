@@ -12,6 +12,12 @@ code {
     monospace;
 }
 
+.container {
+  text-align: center;
+  max-width: 1200px;
+  margin: 22px auto;
+}
+
 /* Header */
 header {
   display: flex;
@@ -63,6 +69,40 @@ form input {
 }
 
 form button {
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  cursor: pointer;
+}
+
+/* Todo list */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+}
+
+ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #eee;
+  margin-bottom: 10px;
+}
+
+ul li s,
+ul li span {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+ul li button {
   border: none;
   border-radius: 5px;
   padding: 10px;
