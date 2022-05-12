@@ -19,6 +19,12 @@ const App = () => {
   useEffect(() => {
     if (user) {
       readTodos(user.uid).then(todos => setTodos(todos));
+      localStorage.setItem('user', JSON.stringify(user));
+    } else {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        setUser(user);
+      }
     }
   }, [user, todos]);
 
@@ -68,6 +74,7 @@ const App = () => {
     logout()
       .then(() => {
         setUser(null);
+        localStorage.removeItem('user');
       })
       .catch(error => {
         console.log(error);
