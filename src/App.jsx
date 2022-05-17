@@ -17,16 +17,26 @@ const App = () => {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem('user'));
+    console.log('user useEffect');
+
     if (user) {
-      readTodos(user.uid).then(todos => setTodos(todos));
-      localStorage.setItem('user', JSON.stringify(user));
-    } else {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        setUser(user);
-      }
+      readTodos(user.uid).then(todos => {
+        setTodos(todos);
+      });
+    } else if (storedUser) {
+      setUser(storedUser);
+      readTodos(storedUser.uid).then(todos => {
+        setTodos(todos);
+      });
     }
-  }, [user, todos]);
+  }, []);
+
+  useEffect(() => {
+    user
+      ? localStorage.setItem('user', JSON.stringify(user))
+      : localStorage.removeItem('user');
+  }, [user]);
 
   const handleGoogleLogin = () => {
     loginWithGoogle()
@@ -74,7 +84,7 @@ const App = () => {
     logout()
       .then(() => {
         setUser(null);
-        localStorage.removeItem('user');
+        setTodos([]);
       })
       .catch(error => {
         console.log(error);
@@ -123,14 +133,26 @@ const App = () => {
             <div className='todo-btns'>
               <button
                 onClick={() => {
-                  updateTodo(todo.id, { completed: !todo.completed });
+                  updateTodo(todo.id, { completed: !todo.completed }).then(
+                    () => {
+                      setTodos(
+                        todos.map(t =>
+                          t.id === todo.id
+                            ? { ...t, completed: !todo.completed }
+                            : t,
+                        ),
+                      );
+                    },
+                  );
                 }}
               >
                 {todo.completed ? 'Uncomplete' : 'Complete'}
               </button>
               <button
                 onClick={() => {
-                  deleteTodo(todo.id);
+                  deleteTodo(todo.id).then(() => {
+                    setTodos(todos.filter(t => t.id !== todo.id));
+                  });
                 }}
               >
                 Delete
