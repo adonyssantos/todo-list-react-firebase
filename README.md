@@ -14,7 +14,10 @@ Esta es una app hecha con React y Firebase en la que puedas crear, leer, actuali
 
 ## Screenshots
 
-![App Screenshot](https://via.placeholder.com/468x300?text=App+Screenshot+Here)
+![image](https://user-images.githubusercontent.com/58638286/168086679-63a7d8a9-fd3e-4a16-acd7-f83adb56b6bd.png)
+
+![image](https://user-images.githubusercontent.com/58638286/168086758-b1771a38-170b-40ea-beba-790f03baa8d1.png)
+
 
 ## Demo
 
